@@ -1,0 +1,40 @@
+{
+  "name": "amazon-web-microservice",
+  "version": "1.0.0",
+  "description": "Amazon Web Microservice for Humber",
+  "main": "app.js",
+  "scripts": {
+    "prestart": "npm install",
+    "build": "babel src --out-dir build",
+    "serve": "node build/app.js",
+    "start": "nodemon --exec babel-node src/app.js",
+    "inspect": "nodemon --exec babel-node --inspect src/app.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "@babel/polyfill": "^7.4.0",
+    "body-parser": "^1.18.3",
+    "config": "^3.0.1",
+    "eslint": "^5.15.3",
+    "express": "^4.16.4",
+    "helmet": "^3.16.0",
+    "js-yaml": "^3.13.0",
+    "moment": "^2.24.0",
+    "swagger-tools": "^0.10.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "nodemon": "^1.18.10"
+  }
+}

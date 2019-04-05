@@ -1,0 +1,183 @@
+---
+swagger: "2.0"
+info:
+  description: "Amazon Web Microservice for Humber\n"
+  version: "1.0.0"
+  title: "Amazon Microservice OpenApi 2.0"
+  termsOfService: "http://swagger.io/terms/"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+- name: "Amazon Web Services"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+schemes:
+- "http"
+- "https"
+security:
+  - APIKeyHeader: []
+paths:
+  /upload:
+    post:
+      tags:
+      - "Amazon Web Services"
+      summary: "Upload a file to Amazon S3 in direct mode"
+      operationId: "addObject"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "formData"
+        name: "bucket"
+        description: "Name of the bucket to upload the object"
+        required: true
+        type: string
+      - in: "formData"
+        name: "fileUpload"
+        description: "File to upload"
+        required: true
+        type: file
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: object
+            properties:
+              location:
+                type: string
+              key:
+                type: string
+        400:
+          description: "Bad request"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Upload"
+  /uploadBuffer:
+    post:
+      tags:
+      - "Amazon Web Services"
+      summary: "Upload a file to Amazon S3 from other Microservice or Api"
+      operationId: "uploadObject"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: "file"
+        in: "body"
+        description: "Bucket name, file name and file buffer. The file buffer must be encoded in hexadecimal"
+        schema:
+          type: "object"
+          properties:
+            bucket:
+              type: string
+            fileName:
+              type: string
+            buffer:
+              type: string
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: object
+            properties:
+              location:
+                type: string
+              key:
+                type: string
+        400:
+          description: "Bad request"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "UploadBuffer"
+  /download:
+    get:
+      tags:
+      - "Amazon Web Services"
+      summary: "Returns a file as picture"
+      operationId: "downloadObject"
+      produces:
+        - image/png
+        - image/gif
+        - image/jpeg
+        - application/pdf
+      parameters:
+      - name: "bucket"
+        in: "query"
+        description: "Name of the bucket to download the object"
+        required: true
+        type: "string"
+      - name: "key"
+        in: "query"
+        description: "Keyname of the Amazon S3 Object"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: file
+        400:
+          description: "Bad request"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Download"
+  /downloadBuffer:
+    get:
+      tags:
+      - "Amazon Web Services"
+      summary: "Returns a file as buffer encoded in hexadecimal"
+      operationId: "downloadObject"
+      produces:
+        - application/json
+      parameters:
+      - name: "bucket"
+        in: "query"
+        description: "Name of the bucket to download the object"
+        required: true
+        type: "string"
+      - name: "key"
+        in: "query"
+        description: "Keyname of the Amazon S3 Object"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful operation"
+          schema:
+            type: object
+            properties:
+              buffer:
+                type: string
+        400:
+          description: "Bad request"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "DownloadBuffer"
+securityDefinitions:
+  APIKeyHeader:
+    type: apiKey
+    in: header
+    name: Authorization
+responses:
+  UnauthorizedError:
+    description: API key is missing or invalid
+    headers:
+      Authorization:
+        type: string 
+  ServerError:
+    description: Server Error.
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

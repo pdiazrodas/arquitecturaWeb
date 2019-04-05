@@ -1,0 +1,14 @@
+{
+  "env": "test",
+  "basePath": "/",
+  "host": "localhost",
+  "port": 5053,
+  "name": "PetStore OpenApi 2.0",
+  "version": "1.0.0",
+  "API_KEY": "6100671d-0ade-4045-9cb5-8ac6d3f4c200-b3dab52b-24f5-419f-93bf-901fc953ea2b",
+  "connection": {
+    "mongodb": {
+      "uri": "mongodb://localhost:27017/petStore"
+    }
+  }
+}
