@@ -1,183 +1,628 @@
 ---
 swagger: "2.0"
 info:
-  description: "Amazon Web Microservice for Humber\n"
+  description: "Petstore Open Api 2.0\n"
   version: "1.0.0"
-  title: "Amazon Microservice OpenApi 2.0"
+  title: "Petstore Open Api 2.0"
   termsOfService: "http://swagger.io/terms/"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-- name: "Amazon Web Services"
-  externalDocs:
-    description: "Find out more"
-    url: "http://swagger.io"
+- name: "pet"
+- name: "store"
+- name: "order"
+- name: "oauth2"
 schemes:
 - "http"
 - "https"
-security:
-  - APIKeyHeader: []
 paths:
-  /upload:
+  /pets:
+    get:
+      tags:
+      - "pet"
+      summary: "Get all pets"
+      description: ""
+      operationId: "pet"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Pet"
+      security:
+      - OAuth2:
+        - "read:pets"
+
     post:
       tags:
-      - "Amazon Web Services"
-      summary: "Upload a file to Amazon S3 in direct mode"
-      operationId: "addObject"
+      - "pet"
+      summary: "Add a new pet to the store"
+      description: ""
+      operationId: "addPet"
       consumes:
       - "multipart/form-data"
       produces:
       - "application/json"
       parameters:
       - in: "formData"
-        name: "bucket"
-        description: "Name of the bucket to upload the object"
+        name: "petName"
+        description: "Name of the pet"
         required: true
         type: string
       - in: "formData"
-        name: "fileUpload"
-        description: "File to upload"
+        name: "petAge"
+        description: "Age (years) of the pet"
         required: true
-        type: file
+        type: number
+      - in: "formData"
+        name: "urlPetPicture1"
+        description: "Url of the Pet´s picture"
+        required: false
+        type: string
+      - in: "formData"
+        name: "urlPetPicture2"
+        description: "Url of the Pet´s picture"
+        required: false
+        type: string
       responses:
         200:
           description: "Successful operation"
-          schema:
-            type: object
-            properties:
-              location:
-                type: string
-              key:
-                type: string
         400:
-          description: "Bad request"
+          description: "Bad Request"
         401:
           $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
         500:
           $ref: '#/responses/ServerError'
-      x-swagger-router-controller: "Upload"
-  /uploadBuffer:
+      x-swagger-router-controller: "Pet"
+      security:
+      - OAuth2:
+        - "write:pets"
+
+  /pets/{petId}:
+    get:
+      tags:
+      - "pet"
+      summary: "Finds a particular pet"
+      description: ""
+      operationId: "pet"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "petId"
+        description: "Pet Id"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Pet"
+      security:
+      - OAuth2:
+        - "read:pets"
+
+    patch:
+      tags:
+      - "pet"
+      summary: "Updates a pet"
+      description: ""
+      operationId: "updatePet"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "petId"
+        description: "Pet Id"
+        required: true
+        type: string
+      - in: "body"
+        name: "petUrls"
+        description: "Urls of Pictures"
+        required: true
+        schema:
+          type: object
+          properties:
+            urlPetPicture1:
+              type: string
+            urlPetPicture2:
+              type: string
+      responses:
+        200:
+          description: "Successful operation"
+        400:
+          description: "Bad Rqequest"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Pet"
+      security:
+      - OAuth2:
+        - "write:pets"
+
+    delete:
+      tags:
+      - "pet"
+      summary: "Deletes a pet"
+      description: ""
+      operationId: "deletePet"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "petId"
+        description: "Item id"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Pet"
+      security:
+      - OAuth2:
+        - "delete:pets"
+
+  /store/inventory:
+    get:
+      tags:
+      - "store"
+      summary: "Get all the items in the inventory"
+      description: ""
+      operationId: "inventory"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Store"
+      security:
+      - OAuth2:
+        - "read:items"
+
     post:
       tags:
-      - "Amazon Web Services"
-      summary: "Upload a file to Amazon S3 from other Microservice or Api"
-      operationId: "uploadObject"
+      - "store"
+      summary: "Add a new item to the store"
+      description: ""
+      operationId: "addInventoryItem"
       consumes:
-        - application/json
+      - "multipart/form-data"
       produces:
-        - application/json
+      - "application/json"
       parameters:
-      - name: "file"
-        in: "body"
-        description: "Bucket name, file name and file buffer. The file buffer must be encoded in hexadecimal"
+      - in: "formData"
+        name: "itemName"
+        description: "Name of the item"
+        required: true
+        type: string
+      - in: "formData"
+        name: "quantity"
+        description: ""
+        required: true
+        type: string
+      - in: "formData"
+        name: "unit"
+        description: "Unit type of the item"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Store"
+      security:
+      - OAuth2:
+        - "write:items"
+
+  /store/inventory/{itemId}:
+    get:
+      tags:
+      - "store"
+      summary: "Get a particular item from the inventory"
+      description: ""
+      operationId: "inventory"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "itemId"
+        description: "Item Id"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Store"
+      security:
+      - OAuth2:
+        - "read:items"
+
+    patch:
+      tags:
+      - "store"
+      summary: "Updates an item"
+      description: ""
+      operationId: "updateInventoryItem"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "itemId"
+        description: "Item Id"
+        required: true
+        type: string
+      - in: "body"
+        name: "item"
+        description: "Item Data"
+        required: true
         schema:
-          type: "object"
+          type: object
           properties:
-            bucket:
+            itemName:
               type: string
-            fileName:
-              type: string
-            buffer:
+            quantity:
+              type: number
+            unit:
               type: string
       responses:
         200:
           description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Store"
+      security:
+      - OAuth2:
+        - "write:items"
+
+    delete:
+      tags:
+      - "store"
+      summary: "Deletes an inventory item"
+      description: ""
+      operationId: "deleteInventoryItem"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "itemId"
+        description: "Item id"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Store"
+      security:
+      - OAuth2:
+        - "delete:items"
+
+  /orders:
+    get:
+      tags:
+      - "order"
+      summary: "Get all the orders"
+      description: ""
+      operationId: "order"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Order"
+      security:
+      - OAuth2:
+        - "read:orders"
+
+    post:
+      tags:
+      - "order"
+      summary: "Add a new new order"
+      description: ""
+      operationId: "addOrder"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "formData"
+        name: "itemName"
+        description: "Name of the item"
+        required: true
+        type: string
+      - in: "formData"
+        name: "quantity"
+        description: ""
+        required: true
+        type: string
+      - in: "formData"
+        name: "unit"
+        description: "Unit type of the item "
+        required: true
+        type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Order"
+      security:
+      - OAuth2:
+        - "write:orders"
+
+  /orders/{orderId}:
+    get:
+      tags:
+      - "order"
+      summary: "Get a particular order"
+      description: ""
+      operationId: "order"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "orderId"
+        description: "Order Id"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Order"
+      security:
+      - OAuth2:
+        - "read:orders"
+
+    patch:
+      tags:
+      - "order"
+      summary: "Updates an order"
+      description: ""
+      operationId: "updateOrder"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "orderId"
+        description: "Order id"
+        required: true
+        type: string
+      - in: "body"
+        name: "order"
+        description: "Order to update"
+        required: true
+        schema:
+          type: object
+          properties:
+            quantity:
+              type: number
+            unit:
+              type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Order"
+      security:
+      - OAuth2:
+        - "write:orders"
+
+    delete:
+      tags:
+      - "order"
+      summary: "Delete an existing order"
+      description: ""
+      operationId: "deleteOrder"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "orderId"
+        description: "Order Id"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "Successful operation"
+        401:
+          $ref: '#/responses/UnauthorizedError'
+        403:
+          $ref: '#/responses/ForbiddenError'
+        404:
+          description: "Not Found"
+        500:
+          $ref: '#/responses/ServerError'
+      x-swagger-router-controller: "Order"
+      security:
+      - OAuth2:
+        - "delete:orders"
+
+  /OAuth2/login:
+    post:
+      tags:
+        - oauth2
+      summary: "Logs User into the system"
+      description: "Logs the user into the system."
+      operationId: "login"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "grant_type"
+        in: "query"
+        description: "Grant type, must be set to password from client application"
+        required: true
+        type: "string"
+      - name: "logAs"
+        in: "query"
+        description: "Login as point or shipper"
+        required: true
+        type: "string"
+      - name: "username"
+        in: "query"
+        description: "The username for login in clear text"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "An object containing a J.W.T. (Json Web Token) and additional information. The aditional information is also encrypted within the token and that´s what the A.P.I. checks when validating the token in each request"
           schema:
             type: object
             properties:
-              location:
+              access_token:
                 type: string
-              key:
+              token_type:
                 type: string
+              expires_in:
+                type: string
+              scope:
+                type: array
+                items:
+                  type: string
+              userData:
+                type: object
         400:
-          description: "Bad request"
+          $ref: '#/responses/BadRequestError'
         401:
           $ref: '#/responses/UnauthorizedError'
         500:
           $ref: '#/responses/ServerError'
-      x-swagger-router-controller: "UploadBuffer"
-  /download:
-    get:
-      tags:
-      - "Amazon Web Services"
-      summary: "Returns a file as picture"
-      operationId: "downloadObject"
-      produces:
-        - image/png
-        - image/gif
-        - image/jpeg
-        - application/pdf
-      parameters:
-      - name: "bucket"
-        in: "query"
-        description: "Name of the bucket to download the object"
-        required: true
-        type: "string"
-      - name: "key"
-        in: "query"
-        description: "Keyname of the Amazon S3 Object"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "Successful operation"
-          schema:
-            type: file
-        400:
-          description: "Bad request"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        500:
-          $ref: '#/responses/ServerError'
-      x-swagger-router-controller: "Download"
-  /downloadBuffer:
-    get:
-      tags:
-      - "Amazon Web Services"
-      summary: "Returns a file as buffer encoded in hexadecimal"
-      operationId: "downloadObject"
-      produces:
-        - application/json
-      parameters:
-      - name: "bucket"
-        in: "query"
-        description: "Name of the bucket to download the object"
-        required: true
-        type: "string"
-      - name: "key"
-        in: "query"
-        description: "Keyname of the Amazon S3 Object"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "Successful operation"
-          schema:
-            type: object
-            properties:
-              buffer:
-                type: string
-        400:
-          description: "Bad request"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        500:
-          $ref: '#/responses/ServerError'
-      x-swagger-router-controller: "DownloadBuffer"
+      x-swagger-router-controller: Oauth2
+
 securityDefinitions:
-  APIKeyHeader:
-    type: apiKey
-    in: header
-    name: Authorization
+  OAuth2:
+    type: oauth2
+    description: "This API uses OAuth2 Resource owner password credentials"
+    flow: password
+    tokenUrl: /oauth2/login
+    scopes:
+      read:pets: "Grants access to read pet´s operations"
+      write:pets: "Grants access to write pet´s operations"
+      delete:pets: "Grants access to delete pets"
+      read:items: "Grants access to read item´s operations"
+      write:items: "Grants access to write item´s operations"
+      delete:items: "Grants access to delete items"
+      read:orders: "Grants access to read order´s operations"
+      write:orders: "Grants access to write order´s operations"
+      delete:orders: "Grants access to delete orders"
 responses:
+  BadRequestError:
+    description: "Bad Request Error"
   UnauthorizedError:
-    description: API key is missing or invalid
+    description: "API key is missing or invalid"
     headers:
       Authorization:
         type: string 
+  ForbiddenError:
+    description: "Forbidden"
   ServerError:
-    description: Server Error.
+    description: "Server Error"
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"

@@ -50,7 +50,7 @@ app.use((req, res, next) => {
     fs.appendFile(logOperations.logFilePath, `${timeRejected} - Status Code: 401 - Unauthorized access - Host: ${req.headers.host} IP: ${req.ip}\n`, (err) => {
       if (err) process.stdout.write('Error at writing logErrors.txt');
     });
-    return res.status(401).send('Humber Amazon Microservice: Unauthorized').end();
+    return res.status(401).send('Petstore API: Unauthorized').end();
   }
   return next();
 });

@@ -1,7 +1,7 @@
 {
-  "name": "amazon-web-microservice",
+  "name": "petstore-openapi",
   "version": "1.0.0",
-  "description": "Amazon Web Microservice for Humber",
+  "description": "Petstore Open Api",
   "main": "app.js",
   "scripts": {
     "prestart": "npm install",
