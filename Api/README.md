@@ -33,47 +33,6 @@ npm run build
 ### Running production build
 ```
 npm run serve
-```
-
-### Version control method (X.Y.Z)
-
-English:
-
- Each commit must have this style: "X.Y.Z Amazon Microservice". If you want to leave a description of the changes you made, before pushing changes run: git commit --ammend, and add the description "UNDER" the tittle.
-
- Remember to upload the version in the config files.
-
--The first digit (X) indicates the major version of the document. If it starts with a zero it means that the document is not ready yet or does not meet the minimum requirements. Each change in this figure denotes a rewrite or incompatibility with older major versions.
-
- In Humber this number will only increase when a refactoring of the API or a total change of functionality is made. Ex: If in the future this api would like to add Humber's own reporting functionality, that is, something that Amazon's S3 service does not provide, then the mayor version would have to be changed.
-
--The second digit (Y) indicates the minor version of the document. Denotes changes in content or in Functionality of the document but not important enough to say that it is no longer the same When a version is released so that the second major version would be 2.0
-
- In Humber this number will only increase when a new functionality is added. For example, new services that were not previously available, but that do not change the functionality of the API to such a point that you have to modify the major version.
- It will also be increased if a service has to be deprecated.
-
--The third digit (Z) indicates the second minor version. Indicates that the document has been corrected but that nothing relevant has been added or deleted. When a minor version is released, that is, when the second minor version is equal to zero; It is usually omitted.
-
- In Humber this number will only increase when an existing service is corrected or modified.
-
-
-Spanish: 
-
- Cada comentario debe tener ser de la forma: "X.Y.Z - Amazon Microservice". Si quiere dejar una descripción de los cambios que realizó, primero haga el commit con el formato anterior y luego, antes de realizar el push, ejecute: git commit --ammend, y agregue la descripción "DEBAJO" del título.
-
- Recordar actualizar la versión en los archivos config.
- 
--La primera cifra (X) indica la versión mayor del documento. Si empieza con un cero significa que el documento aún no está listo o no cumple con los requerimientos mínimos. Cada cambio en esta cifra denota una reescritura o la incompatibilidad con versiones mayores anteriores. 
-
- En Humber esta cifra solo se incrementará cuando se haga una refactorización de la Api o un cambio total de la funcionalidad de la misma con respecto a su anterior versión. Ej: Si en el futuro a este api se le quisiera agregar una funcionalidad de reportes propia de Humber, es decir algo que no brinda el servicio S3 de Amazon, entonces la versión amyor habría que cambiarla.
-
--La segunda cifra (Y) indica la versión menor del documento. Denota cambios en el contenido o en la funcionalidad del documento pero no lo suficientemente importantes como para decir que ya no es el mismo. Cuando se estrena una versión mayor se deja la versión menor a cero pero aún así se incluye de modo que la segunda versión mayor sería la 2.0.
-
- En Humber esta cifra solo se incrementará cuando se agrega una funcionalidad nueva. Por ejemplo, nuevos servicios que anteriormente no estaban, pero que estos no cambian la funcionalidad de la api a tal punto de tener que modificar la versión mayor.
- También se incrementará si se requiere deprecar un servicio.
-
--La tercera cifra (Z) indica la segunda versión menor. Indica que el documento se ha corregido pero que no se ha añadido ni eliminado nada relevante. Cuando se estrena una versión menor, es decir, cuando la segunda versión menor es igual a cero; suele omitirse.
-
- En Humber esta cifra solo se incrementará cuando se corrige o modifica un servicio existente. 
+``` 
 
 
