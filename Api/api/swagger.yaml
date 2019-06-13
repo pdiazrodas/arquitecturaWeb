@@ -38,9 +38,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
-      security:
-      - OAuth2:
-        - "read:pets"
 
     post:
       tags:
@@ -85,9 +82,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
-      security:
-      - OAuth2:
-        - "write:pets"
 
   /pets/{petId}:
     get:
@@ -116,9 +110,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
-      security:
-      - OAuth2:
-        - "read:pets"
 
     patch:
       tags:
@@ -159,9 +150,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
-      security:
-      - OAuth2:
-        - "write:pets"
 
     delete:
       tags:
@@ -189,9 +177,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
-      security:
-      - OAuth2:
-        - "delete:pets"
 
   /store/inventory:
     get:
@@ -214,9 +199,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
-      security:
-      - OAuth2:
-        - "read:items"
 
     post:
       tags:
@@ -256,9 +238,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
-      security:
-      - OAuth2:
-        - "write:items"
 
   /store/inventory/{itemId}:
     get:
@@ -287,9 +266,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
-      security:
-      - OAuth2:
-        - "read:items"
 
     patch:
       tags:
@@ -332,9 +308,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
-      security:
-      - OAuth2:
-        - "write:items"
 
     delete:
       tags:
@@ -362,9 +335,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
-      security:
-      - OAuth2:
-        - "delete:items"
 
   /orders:
     get:
@@ -387,9 +357,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
-      security:
-      - OAuth2:
-        - "read:orders"
 
     post:
       tags:
@@ -429,9 +396,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
-      security:
-      - OAuth2:
-        - "write:orders"
 
   /orders/{orderId}:
     get:
@@ -460,9 +424,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
-      security:
-      - OAuth2:
-        - "read:orders"
 
     patch:
       tags:
@@ -503,9 +464,6 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
-      security:
-      - OAuth2:
-        - "write:orders"
 
     delete:
       tags:
@@ -533,84 +491,7 @@ paths:
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
-      security:
-      - OAuth2:
-        - "delete:orders"
 
-  /OAuth2/login:
-    post:
-      tags:
-        - oauth2
-      summary: "Logs User into the system"
-      description: "Logs the user into the system."
-      operationId: "login"
-      consumes:
-      - "application/x-www-form-urlencoded"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "grant_type"
-        in: "query"
-        description: "Grant type, must be set to password from client application"
-        required: true
-        type: "string"
-      - name: "logAs"
-        in: "query"
-        description: "Login as point or shipper"
-        required: true
-        type: "string"
-      - name: "username"
-        in: "query"
-        description: "The username for login in clear text"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "query"
-        description: "The password for login in clear text"
-        required: true
-        type: "string"
-      responses:
-        200:
-          description: "An object containing a J.W.T. (Json Web Token) and additional information. The aditional information is also encrypted within the token and that´s what the A.P.I. checks when validating the token in each request"
-          schema:
-            type: object
-            properties:
-              access_token:
-                type: string
-              token_type:
-                type: string
-              expires_in:
-                type: string
-              scope:
-                type: array
-                items:
-                  type: string
-              userData:
-                type: object
-        400:
-          $ref: '#/responses/BadRequestError'
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        500:
-          $ref: '#/responses/ServerError'
-      x-swagger-router-controller: Oauth2
-
-securityDefinitions:
-  OAuth2:
-    type: oauth2
-    description: "This API uses OAuth2 Resource owner password credentials"
-    flow: password
-    tokenUrl: /oauth2/login
-    scopes:
-      read:pets: "Grants access to read pet´s operations"
-      write:pets: "Grants access to write pet´s operations"
-      delete:pets: "Grants access to delete pets"
-      read:items: "Grants access to read item´s operations"
-      write:items: "Grants access to write item´s operations"
-      delete:items: "Grants access to delete items"
-      read:orders: "Grants access to read order´s operations"
-      write:orders: "Grants access to write order´s operations"
-      delete:orders: "Grants access to delete orders"
 responses:
   BadRequestError:
     description: "Bad Request Error"
