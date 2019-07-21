@@ -12,7 +12,6 @@ tags:
 - name: "pet"
 - name: "store"
 - name: "order"
-- name: "oauth2"
 schemes:
 - "http"
 - "https"
@@ -29,12 +28,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
@@ -73,12 +66,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        400:
-          description: "Bad Request"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
@@ -101,12 +88,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
@@ -141,12 +122,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        400:
-          description: "Bad Rqequest"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
@@ -168,12 +143,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Pet"
@@ -190,12 +159,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
@@ -229,12 +192,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
@@ -257,12 +214,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
@@ -299,12 +250,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
@@ -326,12 +271,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Store"
@@ -348,12 +287,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
@@ -370,8 +303,8 @@ paths:
       - "application/json"
       parameters:
       - in: "formData"
-        name: "itemName"
-        description: "Name of the item"
+        name: "itemId"
+        description: "id of the item"
         required: true
         type: string
       - in: "formData"
@@ -379,20 +312,9 @@ paths:
         description: ""
         required: true
         type: string
-      - in: "formData"
-        name: "unit"
-        description: "Unit type of the item "
-        required: true
-        type: string
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
@@ -415,12 +337,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
@@ -450,17 +366,9 @@ paths:
           properties:
             quantity:
               type: number
-            unit:
-              type: string
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
@@ -482,12 +390,6 @@ paths:
       responses:
         200:
           description: "Successful operation"
-        401:
-          $ref: '#/responses/UnauthorizedError'
-        403:
-          $ref: '#/responses/ForbiddenError'
-        404:
-          description: "Not Found"
         500:
           $ref: '#/responses/ServerError'
       x-swagger-router-controller: "Order"
