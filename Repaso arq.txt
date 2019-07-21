@@ -1,0 +1,105 @@
+Resúmen Arquitectura Web:
+
+Objetivo de estudio:
+
+ -Stack de tecnologías
+ -Arquitecturas
+ -HTTP
+ -Optimización
+ -Escalabilidad
+ -Patrones
+ -Código
+ -Testing
+
+Front end & Back end:
+En ingeniería de software, los términos front end y back end hacen referencia a una separación de interes entre la capa de presentación (front end) y la capa de acceso a datos de un producto de software o una infraestructura de hardware. 
+El front es una abstracción simplificada de los componentes para obtener una interfaz de usuario amigable, mientras que el back usualmente maneja la lógica de negocio y almacenamiento de datos.
+
+Protocolo HTTP:
+
+El protocolo de transferencia de hipertexto es un protocolo sin estado de la capa de aplicación basado en el patrón petición/respuesta. Utiliza semántica extendible y contenido autodescriptible para lograr una itneracción flexible con sistemas que intercambian información a través de la red con hipertexto.
+
+  Características:  -Protocolo de Petición/Respuesta
+                    -Modelo cliente/servidor
+                    -Sin estado: No guarda estado entre los mensajes intercambiados.
+                    -Puerto por defecto: TCP/IP: 80
+                    -Versión actual: HTTP/1.1 Agrega característica nuevas como: conexiones persistentes, transferencia por partes, cacheo de cabeceras. HTTP/2 salió en 2015.
+
+Es un protocolo de capa de aplicación que se envía sobre TCP o TLS en una conexión encriptada TCP. Dada su extensibilidad no solo se utiliza para transferir documentos de hipertexto sino también imágenes y videos, o publicar contenido en servidores.
+
+Sesión HTTP:
+
+ 1-Un cliente inicia una petición HTTP estableciendo una conexión TCP a un puerto del servidor.
+
+ 2-El servidor, con su puerto en escucha de peticiones, espera un mensaje.
+
+ 3-El servidor atiende el request y responde como HTML o cualquier otro contenido como resultado de un procesamiento.
+
+ 4-El server envía un response como respuesta. El contenido es enviado en el body.
+
+Desde HTTP/1.1, la conexión ya no es finalizada al completar el punto 4. Sino que al cliente se le otorga la posibilidad de realizar nuevos request para que el cliclo de request/response se pueda retirar varias veces.
+
+
+Estableciendo conexión:
+En protocolos cliente/servidor, es el cliente el que establece la conexión. Establecer una conexión HTTP
+significa iniciar una conexión con el protocolo de la capa de transporte.
+
+Con TCP, el port por defecto para un servidor HTTP es el port 80 y 443 para HTTPS. Otros puertos
+también se utilizan, por ejemplo, en entornos de desarrollo como el 8080 o 8082.
+
+
+URL(Uniform Resource locator): Es un string que se utiliza para identificar un recurso web de manera unívoca. Tiene una estructura simple que consiste de los siguientes componentes:
+
+Portocolo + host + port + resource path + query
+
+User Agent: Es un software que actúa en nombre del usuario.
+
+Línea Inicial: 
+
+ Para request: Método de petición + URI + versión http
+ Para response: versión HTTP + código respuesta + Mensaje
+
+Cabeceras: Son metadatos que le dan flexibilidad al protocolo.
+Cuerpo del mensaje:Opcional
+  
+  request line-method -request uri- versión httprequest header-entity header- body
+
+Header HTTP: 
+
+AGrupados por contexto:
+  -General Headers: aplican a request y response pero no tienen relacion con lso datos transmitidos
+  -Request headers: info de recurso a ser obtenido o acerca del cliente mismo.
+  -Response headers: Info sobre el response mismo.
+  -Entity Headers: brindan información mas acerca del body.
+
+Agrupados por categoría:
+  ...
+
+
+Verbos HTTP: Especifican la acción que debe ser aplicada en el host host para un recurso. Cada uno implementa una semántica diferente. GET POST PUT PATCH DELETE 
+options: Es un request de información acerca de las opciones de comunicación disponibles.
+
+
+Elementos REST;
+ Recurso
+ Identificador de recurso
+ representacion
+ metadata de la representacion
+ recurso metadata
+ control de datos
+
+REST components perform actions on a resource by using a representation to capture the current or intended state of that
+resource and transferring that representation between components.
+A representation consists of data, metadata describing the data, and, on occasion, metadata to describe the metadata
+(usually for the purpose of verifying message integrity). Metadata is in the form of name-value pairs, where the name
+corresponds to a standard that defines the value's structure and semantics.
+
+
+HTTP RESTFUL
+Level 0: Usa http pero no utiliza el protocolo para indicar el estado de la aplicación. Solo usa en entrypoint y 1 metodo http.
+
+Level 1: Distingue recursos a travez de varias Uri pero sigue utilizando 1 solo metodo.
+
+Level 2: Utiliza verbos http
+
+Level 3: Hypertext As The Engine of Application State. Es una restricción que aplica a la arquitectura rest. Significa que debe usarse hipertexto para poder desplazarse a través de la api. Un site orientado a hipermedia ofrece información necesaria para navegar la interface REST dek mismo.
