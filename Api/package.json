@@ -23,7 +23,7 @@
     "express": "^4.16.4",
     "helmet": "^3.16.0",
     "js-yaml": "^3.13.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoist": "^2.0.0",
     "mongojs": "^2.6.0",
     "swagger-tools": "^0.10.4"
