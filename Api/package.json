@@ -20,7 +20,7 @@
     "body-parser": "^1.18.3",
     "config": "^3.0.1",
     "eslint": "^5.15.3",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "helmet": "^3.16.0",
     "js-yaml": "^3.13.1",
     "moment": "^2.24.0",
